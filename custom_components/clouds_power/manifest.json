@@ -1,0 +1,11 @@
+{
+  "codeowners": ["wangxso"],
+  "config_flow": false,
+  "dependencies": [],
+  "documentation": "https://github.com/wangxso/cloudspower/",
+  "domain": "clouds_power",
+  "iot_class": "cloud_polling",
+  "name": "Clouds Power",
+  "requirements": [],
+  "version": "1.0.0"
+}

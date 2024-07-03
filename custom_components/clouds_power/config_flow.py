@@ -14,16 +14,11 @@ class ElectricUsageConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
 
         if user_input is not None:
-            # 验证用户输入的数据
-            valid = await self._validate_user_input(user_input)
-
-            if valid:
-                # 如果数据有效，创建配置条目
-                return self.async_create_entry(
-                    title=user_input["name"],
-                    data=user_input
-                )
-
+            return self.async_create_entry(
+                title=user_input["name"],
+                data=user_input
+            )
+        
         return self.async_show_form(
             step_id="user", data_schema=vol.Schema({
                 vol.Required("name"): str,
@@ -31,18 +26,7 @@ class ElectricUsageConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             }), errors=errors
         )
 
-    @staticmethod
-    async def _validate_user_input(user_input):
-        # 这里实现API调用以验证API密钥是否有效
-        session = async_get_clientsession(self.hass)
-        try:
-            response = await session.get(f"https://api.yourdomain.com/validate", params={
-                "api_key": user_input["api_key"]
-            })
-            response.raise_for_status()
-            return True
-        except Exception:
-            return False
+
 
     async def async_step_import(self, user_input):
         # 处理YAML文件导入的配置
